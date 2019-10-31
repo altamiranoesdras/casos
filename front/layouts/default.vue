@@ -146,7 +146,7 @@ export default {
                 to: '/oficinas'
             },
             {
-                icon: 'mdi-folder',
+                icon: 'mdi-folder-edit-outline',
                 title: 'Casos',
                 to: '/casos'
             }

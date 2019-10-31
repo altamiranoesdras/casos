@@ -31,13 +31,10 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.nombre" label="Nombre"></v-text-field>
+                    <v-text-field v-model="editedItem.titulo" label="Caso"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.telefono" label="Telefono"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.correo" label="Correo"></v-text-field>
+                    <v-text-field v-model="editedItem.cuerpo" label="Descripcion"></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -82,29 +79,26 @@
             dialog: false,
             loading: true,
             headers: [
-                { text: 'Nombre', value: 'nombre',},
-                { text: 'Telefono', value: 'telefono' },
-                { text: 'Correo', value: 'correo' },
+                { text: 'Caso', value: 'titulo',},
+                { text: 'Descripcion', value: 'cuerpo' },
                 { text: 'Actions', value: 'action' },
             ],
-            oficinas: [],
+            casos: [],
             editedItem: {
                 id : 0,
-                nombre: '',
-                telefono: '',
-                correo: '',
+                Caso: '',
+                Descripcion: '',
             },
             defaultItem: {
                 id : 0,
-                nombre: '',
-                telefono: '',
-                correo: '',
+                Caso: '',
+                Descripcion: '',
             },
         }),
 
         computed: {
             formTitle () {
-                return this.editedItem.id === 0 ? 'Nueva Oficina' : 'Editar Oficina'
+                return this.editedItem.id === 0 ? 'Nuevo Caso' : 'Editar Caso'
             },
         },
 
@@ -124,7 +118,7 @@
 
                 try{
 
-                    const res = await this.$axios.$get('api/oficinas');
+                    const res = await this.$axios.$get('api/casos');
 
                     this.users = res.data;
                     this.loading = false;
@@ -147,13 +141,13 @@
 
                 this.editedItem = Object.assign({}, item);
 
-                const res = confirm('Esta seguro de eliminar la oficina '+this.editedItem.nombre+' ?');
+                const res = confirm('Esta seguro de eliminar el caso '+this.editedItem.titulo+' ?');
 
 
                 //si da click en aceptar
                 if (res){
                     try {
-                        const url = 'api/oficinas/'+this.editedItem.id;
+                        const url = 'api/casos/'+this.editedItem.id;
 
                         const res = await this.$axios.$delete(url);
 
@@ -186,13 +180,13 @@
 
                     if(this.editedItem.id === 0){
 
-                        const url = 'api/oficinas';
+                        const url = 'api/casos';
 
                         var res = await this.$axios.$post(url,data);
 
                     }else {
 
-                        var url = 'api/oficinas/'+this.editedItem.id;
+                        var url = 'api/casos/'+this.editedItem.id;
 
                         var res = await this.$axios.$patch(url,data);
                     }
