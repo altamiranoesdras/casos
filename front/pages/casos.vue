@@ -33,8 +33,8 @@
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.titulo" label="Caso"></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.cuerpo" label="Descripcion"></v-text-field>
+                  <v-col cols="12" md="12">
+                    <v-textarea v-model="editedItem.cuerpo" label="Descripcion" outlined></v-textarea>
                   </v-col>
                 </v-row>
               </v-container>
