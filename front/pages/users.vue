@@ -103,7 +103,7 @@
 
         computed: {
             formTitle () {
-                return this.editedItem.id === 0 ? 'New Item' : 'Edit Item'
+                return this.editedItem.id === 0 ? 'Nuevo Usuario' : 'Editar Usuario'
             },
         },
 

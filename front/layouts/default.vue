@@ -127,7 +127,7 @@ export default {
         items: [
           {
                 icon: 'mdi-apps',
-                title: 'Welcome',
+                title: 'Inicio',
                 to: '/'
           },
           {
@@ -136,10 +136,15 @@ export default {
                 to: '/users'
           },
           {
-                icon: 'mdi-account',
+                icon: 'mdi-domain',
                 title: 'Empresas',
                 to: '/empresas'
-          }
+          },
+            {
+                icon: 'mdi-office',
+                title: 'Oficinas',
+                to: '/oficinas'
+            }
         ],
         miniVariant: false,
         right: true,
