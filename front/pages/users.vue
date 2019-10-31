@@ -146,7 +146,7 @@
 
                 this.editedItem = Object.assign({}, item);
 
-                const res = confirm('Esta seguro de eliminar el Usuario '+this.editedItem.name+' ?');
+                const res = confirm('Esta seguro de eliminar el usuario '+this.editedItem.name+' ?');
 
 
                 //si da click en aceptar

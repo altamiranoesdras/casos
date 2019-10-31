@@ -24,3 +24,5 @@ Route::resource('users', 'UserAPIController');
 Route::resource('empresas', 'EmpresaAPIController');
 
 Route::resource('oficinas', 'OficinaAPIController');
+
+Route::resource('casos', 'CasoAPIController');

@@ -153,7 +153,7 @@
 
                 this.editedItem = Object.assign({}, item);
 
-                const res = confirm('Esta seguro de eliminar la Empresa '+this.editedItem.nombre+' ?');
+                const res = confirm('Esta seguro de eliminar la empresa '+this.editedItem.nombre+' ?');
 
 
                 //si da click en aceptar

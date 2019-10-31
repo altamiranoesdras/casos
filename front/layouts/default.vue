@@ -144,6 +144,11 @@ export default {
                 icon: 'mdi-office',
                 title: 'Oficinas',
                 to: '/oficinas'
+            },
+            {
+                icon: 'mdi-folder',
+                title: 'Casos',
+                to: '/casos'
             }
         ],
         miniVariant: false,
