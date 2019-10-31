@@ -132,7 +132,7 @@ export default {
           },
           {
                 icon: 'mdi-account',
-                title: 'Users',
+                title: 'Usuarios',
                 to: '/users'
           },
           {
@@ -149,6 +149,11 @@ export default {
                 icon: 'mdi-folder-edit-outline',
                 title: 'Casos',
                 to: '/casos'
+            },
+            {
+                icon: 'mdi-file-chart',
+                title: 'Reportes',
+                to: '/'
             }
         ],
         miniVariant: false,
