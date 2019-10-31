@@ -126,14 +126,19 @@ export default {
         fixed: true,
         items: [
           {
-            icon: 'mdi-apps',
-            title: 'Welcome',
-            to: '/'
+                icon: 'mdi-apps',
+                title: 'Welcome',
+                to: '/'
           },
           {
-            icon: 'mdi-account',
-            title: 'Users',
-            to: '/users'
+                icon: 'mdi-account',
+                title: 'Users',
+                to: '/users'
+          },
+          {
+                icon: 'mdi-account',
+                title: 'Empresas',
+                to: '/empresas'
           }
         ],
         miniVariant: false,

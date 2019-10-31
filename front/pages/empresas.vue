@@ -8,7 +8,7 @@
 
       <v-toolbar flat color="dark">
 
-        <v-toolbar-title>Usuarios</v-toolbar-title>
+        <v-toolbar-title>Empresas</v-toolbar-title>
 
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
@@ -19,13 +19,14 @@
         <v-dialog v-model="dialog" max-width="500px">
 
           <template v-slot:activator="{ on }">
-            <v-btn color="primary" light class="mb-2" v-on="on">Nuevo Usuario</v-btn>
+            <v-btn color="primary" light class="mb-2" v-on="on">Nueva Empresa</v-btn>
           </template>
 
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
             </v-card-title>
+
             <v-card-text>
               <v-container>
                 <v-row>
@@ -103,7 +104,7 @@
 
         computed: {
             formTitle () {
-                return this.editedItem.id === 0 ? 'New Item' : 'Edit Item'
+                return this.editedItem.id === 0 ? 'Nueva Empresa' : 'Editar Empresa'
             },
         },
 
@@ -123,7 +124,7 @@
 
                 try{
 
-                    const res = await this.$axios.$get('api/users');
+                    const res = await this.$axios.$get('api/empresas');
 
                     this.users = res.data;
                     this.loading = false;
@@ -146,13 +147,13 @@
 
                 this.editedItem = Object.assign({}, item);
 
-                const res = confirm('Esta seguro de eliminar el Usuario '+this.editedItem.name+' ?');
+                const res = confirm('Esta seguro de eliminar la Empresa '+this.editedItem.name+' ?');
 
 
                 //si da click en aceptar
                 if (res){
                     try {
-                        const url = 'api/users/'+this.editedItem.id;
+                        const url = 'api/empresas/'+this.editedItem.id;
 
                         const res = await this.$axios.$delete(url);
 
@@ -185,13 +186,13 @@
 
                     if(this.editedItem.id === 0){
 
-                        const url = 'api/users';
+                        const url = 'api/empresas';
 
                         var res = await this.$axios.$post(url,data);
 
                     }else {
 
-                        var url = 'api/users/'+this.editedItem.id;
+                        var url = 'api/empresas/'+this.editedItem.id;
 
                         var res = await this.$axios.$patch(url,data);
                     }
