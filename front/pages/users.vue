@@ -19,7 +19,7 @@
         <v-dialog v-model="dialog" max-width="500px">
 
           <template v-slot:activator="{ on }">
-            <v-btn color="primary" light class="mb-2" v-on="on">New Item</v-btn>
+            <v-btn color="primary" light class="mb-2" v-on="on">Nuevo Usuario</v-btn>
           </template>
 
           <v-card>
@@ -188,20 +188,17 @@
 
                         const url = 'api/users';
 
-                        const res = await this.$axios.$post(url,data);
+                        var res = await this.$axios.$post(url,data);
 
                     }else {
 
-                        const url = 'api/users/'+this.editedItem.id;
+                        var url = 'api/users/'+this.editedItem.id;
 
-                        const res = await this.$axios.$patch(url,data);
-
+                        var res = await this.$axios.$patch(url,data);
                     }
 
-                    this.notifySuccess('Listo!',res.data.message);
-
+                    this.notifySuccess('Listo!',res.message);
                     this.getDatos();
-                    //console.log(res.data);
 
                 }catch (e) {
                     console.log(e.response);
