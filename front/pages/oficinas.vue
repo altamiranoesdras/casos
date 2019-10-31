@@ -31,7 +31,7 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.nombre" label="Nombre"></v-text-field>
+                    <v-text-field v-model="editedItem.nombre" label="Nombr"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.direccion" label="Dirección"></v-text-field>
