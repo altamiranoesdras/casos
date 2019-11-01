@@ -2,7 +2,7 @@
 
   <!--            Tabla de datos
   ------------------------------------------------------------------------>
-  <v-data-table :headers="headers" :items="users" sort-by="calories" class="elevation-1" :loading="loading" loading-text="Cargando datos, por favor espere...">
+  <v-data-table :headers="headers" :items="casos" sort-by="calories" class="elevation-1" :loading="loading" loading-text="Cargando datos, por favor espere...">
 
     <template v-slot:top>
 
@@ -120,7 +120,7 @@
 
                     const res = await this.$axios.$get('api/casos');
 
-                    this.users = res.data;
+                    this.casos = res.data;
                     this.loading = false;
 
                 }catch (error) {

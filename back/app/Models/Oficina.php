@@ -13,19 +13,20 @@ use Illuminate\Database\Eloquent\Model as Model;
  * @property \App\Models\User responsable
  * @property \Illuminate\Database\Eloquent\Collection casoBitacoras
  * @property \Illuminate\Database\Eloquent\Collection casos
- * @property integer empresa_id
  * @property string nombre
  * @property string telefono
  * @property string correo
- * @property integer responsable
+
  */
 class Oficina extends Model
 {
 
     public $table = 'oficinas';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
+
+    protected $with = ['responsable'];
 
 
 
@@ -69,6 +70,7 @@ class Oficina extends Model
     public function empresa()
     {
         return $this->belongsTo(\App\Models\Empresa::class, 'empresa_id');
+
     }
 
     /**
@@ -76,7 +78,7 @@ class Oficina extends Model
      **/
     public function responsable()
     {
-        return $this->belongsTo(\App\Models\User::class, 'responsable');
+        return $this->belongsTo(\App\User::class,'responsable');
     }
 
     /**
@@ -95,3 +97,4 @@ class Oficina extends Model
         return $this->belongsToMany(\App\Models\Caso::class, 'caso_ruta');
     }
 }
+

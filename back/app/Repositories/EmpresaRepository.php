@@ -41,4 +41,8 @@ class EmpresaRepository extends BaseRepository
     {
         return Empresa::class;
     }
+    public function getTextAttribute()
+    {
+        return $this->name;
+    }
 }
