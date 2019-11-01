@@ -15,13 +15,12 @@ use Illuminate\Database\Eloquent\Model as Model;
  * @property string direccion
  * @property string telefono
  * @property string correo
- * @property integer admin
  */
 class Empresa extends Model
 {
 
     public $table = 'empresas';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -56,8 +55,7 @@ class Empresa extends Model
      * @var array
      */
     public static $rules = [
-        'nombre' => 'required',
-        'admin' => 'required'
+        'nombre' => 'required'
     ];
 
     /**
