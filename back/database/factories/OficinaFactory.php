@@ -4,15 +4,16 @@
 
 use App\Model;
 use App\Models\Empresa;
+use App\Models\Oficina;
 use App\User;
 use Faker\Generator as Faker;
 
-$factory->define(Empresa::class, function (Faker $faker) {
+$factory->define(Oficina::class, function (Faker $faker) {
     return [
+        'empresa_id' => Empresa::all()->random()->id,
         'nombre' => $faker->sentence,
-        'direccion' => $faker->address,
         'telefono' => $faker->phoneNumber,
         'correo' => $faker->email,
-        'admin' => null
+        'responsable' => null
     ];
 });
