@@ -28,6 +28,7 @@ class UpdateUserAPIRequest extends APIRequest
         $id = $this->user;
         $rules = User::$rules;
         $rules['username'] = $rules['username'] . ',username,' . $id;
+        unset($rules['password']);
 
         return $rules;
     }

@@ -2,7 +2,7 @@
 
   <!--            Tabla de datos
   ------------------------------------------------------------------------>
-  <v-data-table :headers="headers" :items="users" sort-by="calories" class="elevation-1" :loading="loading" loading-text="Cargando datos, por favor espere...">
+  <v-data-table :headers="headers" :items="users" sort-by="calories" class="elevation-1" :loading="loadingDatos" loading-text="Cargando datos, por favor espere...">
 
     <template v-slot:top>
 
@@ -16,38 +16,57 @@
 
         <!--            Ventana modal del formulario
         ------------------------------------------------------------------------>
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog v-model="dialog" max-width="800px">
 
           <template v-slot:activator="{ on }">
             <v-btn color="primary" light class="mb-2" v-on="on">Nuevo Usuario</v-btn>
           </template>
 
-          <v-card>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.name" label="Nombre"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.username" label="Username"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.email" label="Correo"></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
+          <v-form @submit.prevent="save" onautocomplete="off">
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
-              <v-btn color="blue darken-1" text @click="save">Guardar</v-btn>
-            </v-card-actions>
-          </v-card>
+            <v-card class="pb-2">
+              <v-card-title>
+                <span class="headline">{{ formTitle }}</span>
+              </v-card-title>
+
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field v-model="editedItem.name" label="Nombre"></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field v-model="editedItem.username" label="Username"></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field  v-model="editedItem.email" label="Correo"></v-text-field>
+                    </v-col>
+
+
+                    <v-col cols="12" sm="6" md="6" v-show="!editando">
+                      <v-text-field type="password" v-model="editedItem.password" label="Contraseña"></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="6" v-show="!editando">
+
+                      <v-text-field type="password" v-model="editedItem.password_confirmation" label="Confirmar Contraseña"></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions class="mr-4" >
+                <v-spacer></v-spacer>
+                <v-btn outlined color="blue" text @click="close">Cancelar</v-btn>
+                <v-btn outlined type="submit" color="green" text >
+                  <span v-text="loading ? 'GUARDANDO...' : 'GUARDAR'"></span>   <v-icon v-show="loading">mdi-loading mdi-spin</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-form>
+
         </v-dialog>
 
       </v-toolbar>
@@ -67,7 +86,7 @@
 
     <!-- Boton para cuando no hay datos en la tabla -->
     <template v-slot:no-data>
-      <v-btn color="primary" @click="getDatos">Reset</v-btn>
+      <v-btn color="primary" @click="getDatos">Recargar</v-btn>
     </template>
 
   </v-data-table>
@@ -79,12 +98,13 @@
         middleware: 'auth',
         data: () => ({
             dialog: false,
-            loading: true,
+            loadingDatos: true,
+            loading: false,
             headers: [
                 { text: 'Username', value: 'username',},
                 { text: 'Nombre', value: 'name' },
                 { text: 'Correo', value: 'email' },
-                { text: 'Actions', value: 'action', width: '10%'},
+                { text: 'Actions', value: 'action' },
             ],
             users: [],
             editedItem: {
@@ -92,12 +112,16 @@
                 name: '',
                 username: '',
                 email: '',
+                password: '',
+                password_confirmation: '',
             },
             defaultItem: {
                 id : 0,
                 name: '',
                 username: '',
                 email: '',
+                password: '',
+                password_confirmation: '',
             },
         }),
 
@@ -105,6 +129,9 @@
             formTitle () {
                 return this.editedItem.id === 0 ? 'Nuevo Usuario' : 'Editar Usuario'
             },
+            editando(){
+                return this.editedItem.id !== 0;
+            }
         },
 
         watch: {
@@ -126,7 +153,7 @@
                     const res = await this.$axios.$get('api/users');
 
                     this.users = res.data;
-                    this.loading = false;
+                    this.loadingDatos = false;
 
                 }catch (error) {
 
@@ -146,7 +173,7 @@
 
                 this.editedItem = Object.assign({}, item);
 
-                const res = confirm('Esta seguro de eliminar el usuario '+this.editedItem.name+' ?');
+                const res = confirm('Esta seguro de eliminar el Usuario '+this.editedItem.name+' ?');
 
 
                 //si da click en aceptar
@@ -159,7 +186,7 @@
                         this.getDatos();
 
 
-                        this.notifySuccess('Listo!',res.data.message);
+                        this.notifySuccess('Listo!',res.message);
 
                     }catch (e) {
                         console.log(e.response)
@@ -172,12 +199,15 @@
 
             close () {
                 this.dialog = false;
+                this.loading = false;
                 setTimeout(() => {
                     this.editedItem = Object.assign({}, this.defaultItem);
                 }, 300)
             },
 
             async save () {
+
+                this.loading = true;
 
                 try {
 
@@ -191,13 +221,16 @@
 
                     }else {
 
-                        var url = 'api/users/'+this.editedItem.id;
+                        const url = 'api/users/'+this.editedItem.id;
 
                         var res = await this.$axios.$patch(url,data);
+
                     }
 
                     this.notifySuccess('Listo!',res.message);
+
                     this.getDatos();
+                    this.close();
 
                 }catch (e) {
                     console.log(e.response);
@@ -208,10 +241,10 @@
 
                         this.notifyErrorList(errors);
                     }
+
+                    this.loading = false;
                 }
 
-
-                this.close()
             }
         }
     }
