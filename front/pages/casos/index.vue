@@ -80,6 +80,9 @@
       <v-btn @click="deleteItem(item)" color="mr-2 error" fab x-small dark>
       <v-icon> mdi-delete </v-icon>
       </v-btn>
+      <v-btn @click="show(item)" color="mr-2 success" fab x-small dark>
+        <v-icon> mdi-eye </v-icon>
+      </v-btn>
     </template>
 
 
@@ -103,7 +106,7 @@
                 { text: 'Caso', value: 'titulo',},
                 { text: 'Descripcion', value: 'cuerpo' },
                 { text: 'Estado', value: 'estado.nombre' },
-                { text: 'Actions', value: 'action', width: '10%' },
+                { text: 'Actions', value: 'action', width: '20%' },
             ],
             oficinas: [],
             casos: [],
@@ -240,6 +243,12 @@
                     this.loadingForm = false;
                 }
 
+            },
+            show(item){
+
+                // this.consolaJs('/casos/'+item.id);
+
+                this.$router.replace('/casos/'+item.id);
             }
         }
     }
