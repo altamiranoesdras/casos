@@ -26,7 +26,6 @@ class Empresa extends Model
 
     protected $with = ['admin'];
 
-
     public $fillable = [
         'nombre',
         'direccion',

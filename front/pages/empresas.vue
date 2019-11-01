@@ -16,7 +16,7 @@
 
         <!--            Ventana modal del formulario
         ------------------------------------------------------------------------>
-        <v-dialog v-model="dialog" max-width="600px">
+        <v-dialog v-model="dialog" max-width="800px">
 
           <template v-slot:activator="{ on }">
             <v-btn color="primary" light class="mb-2" v-on="on">Nueva Empresa</v-btn>

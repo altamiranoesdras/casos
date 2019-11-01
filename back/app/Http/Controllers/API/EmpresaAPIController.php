@@ -57,7 +57,7 @@ class EmpresaAPIController extends AppBaseController
 
         $empresa = $this->empresaRepository->create($input);
 
-        return $this->sendResponse($empresa->toArray(), 'Empresa saved successfully');
+        return $this->sendResponse($empresa->toArray(), 'Empresa Guardada Satisfactoriamente');
     }
 
     /**
@@ -74,7 +74,7 @@ class EmpresaAPIController extends AppBaseController
         $empresa = $this->empresaRepository->find($id);
 
         if (empty($empresa)) {
-            return $this->sendError('Empresa not found');
+            return $this->sendError('Empresa no Encontrada');
         }
 
         return $this->sendResponse($empresa->toArray(), 'Empresa retrieved successfully');
@@ -97,12 +97,12 @@ class EmpresaAPIController extends AppBaseController
         $empresa = $this->empresaRepository->find($id);
 
         if (empty($empresa)) {
-            return $this->sendError('Empresa not found');
+            return $this->sendError('Empresa no Encontrada');
         }
 
         $empresa = $this->empresaRepository->update($input, $id);
 
-        return $this->sendResponse($empresa->toArray(), 'Empresa updated successfully');
+        return $this->sendResponse($empresa->toArray(), 'Empresa Actualizada Satisfactoriamente');
     }
 
     /**
@@ -121,11 +121,11 @@ class EmpresaAPIController extends AppBaseController
         $empresa = $this->empresaRepository->find($id);
 
         if (empty($empresa)) {
-            return $this->sendError('Empresa not found');
+            return $this->sendError('Empresa no Encontrada');
         }
 
         $empresa->delete();
 
-        return $this->sendResponse($id, 'Empresa deleted successfully');
+        return $this->sendResponse($id, 'Empresa Eliminada Satisfactoriamente');
     }
 }

@@ -2,7 +2,7 @@
 
   <!--            Tabla de datos
   ------------------------------------------------------------------------>
-  <v-data-table :headers="headers" :items="users" sort-by="calories" class="elevation-1" :loading="loading" loading-text="Cargando datos, por favor espere...">
+  <v-data-table :headers="headers" :items="oficinas" sort-by="calories" class="elevation-1" :loading="loading" loading-text="Cargando datos, por favor espere...">
 
     <template v-slot:top>
 
@@ -16,7 +16,7 @@
 
         <!--            Ventana modal del formulario
         ------------------------------------------------------------------------>
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog v-model="dialog" max-width="800px">
 
           <template v-slot:activator="{ on }">
             <v-btn color="primary" light class="mb-2" v-on="on">Nueva Oficina</v-btn>
@@ -30,14 +30,30 @@
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="6" md="6">
                     <v-text-field v-model="editedItem.nombre" label="Nombre"></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="6" md="6">
                     <v-text-field v-model="editedItem.telefono" label="Telefono"></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="6" md="6">
                     <v-text-field v-model="editedItem.correo" label="Correo"></v-text-field>
+                  </v-col>
+                  <v-col class="d-flex" cols="12" sm="6">
+                    <v-select
+                      :items="empresas"
+                      label="Empresa"
+                      v-model="editedItem.empresa_id"
+                      item-value="id"
+                    ></v-select>
+                  </v-col>
+                  <v-col class="d-flex" cols="12" sm="6">
+                    <v-select
+                      :items="users"
+                      label="Usuario"
+                      v-model="editedItem.responsable"
+                      item-value="id"
+                    ></v-select>
                   </v-col>
                 </v-row>
               </v-container>
@@ -82,21 +98,29 @@
             dialog: false,
             loading: true,
             headers: [
-                { text: 'Nombre', value: 'nombre',},
+                { text: 'Empresa', value: 'empresa_id.nombre' },
+                { text: 'Oficina', value: 'nombre',},
+                { text: 'Usuario', value: 'responsable.name' },
                 { text: 'Telefono', value: 'telefono' },
                 { text: 'Correo', value: 'correo' },
                 { text: 'Actions', value: 'action' },
             ],
             oficinas: [],
+            empresas: [],
+            users: [],
             editedItem: {
                 id : 0,
+                empresa_id: '',
                 nombre: '',
+                responsable: '',
                 telefono: '',
                 correo: '',
             },
             defaultItem: {
                 id : 0,
+                empresa_id: '',
                 nombre: '',
+                responsable: '',
                 telefono: '',
                 correo: '',
             },
@@ -125,8 +149,12 @@
                 try{
 
                     const res = await this.$axios.$get('api/oficinas');
+                    const resUs = await this.$axios.$get('api/users');
+                    const resEm = await this.$axios.$get('api/empresas');
 
-                    this.users = res.data;
+                    this.oficinas = res.data;
+                    this.users = resUs.data;
+                    this.empresas = resEm.data;
                     this.loading = false;
 
                 }catch (error) {
