@@ -30,6 +30,24 @@
             <v-card-text>
               <v-container>
                 <v-row>
+
+                  <v-col class="d-flex" cols="12" sm="6">
+                    <v-select
+                      :items="empresas"
+                      label="Empresa"
+                      v-model="editedItem.empresa_id"
+                      item-value="id"
+                      item-text="nombre"
+                    ></v-select>
+                  </v-col>
+                  <v-col class="d-flex" cols="12" sm="6">
+                    <v-select
+                      :items="users"
+                      label="Responsable"
+                      v-model="editedItem.responsable"
+                      item-value="id"
+                    ></v-select>
+                  </v-col>
                   <v-col cols="12" sm="6" md="6">
                     <v-text-field v-model="editedItem.nombre" label="Nombre"></v-text-field>
                   </v-col>
@@ -38,22 +56,6 @@
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
                     <v-text-field v-model="editedItem.correo" label="Correo"></v-text-field>
-                  </v-col>
-                  <v-col class="d-flex" cols="12" sm="6">
-                    <v-select
-                      :items="empresas"
-                      label="Empresa"
-                      v-model="editedItem.empresa_id"
-                      item-value="id"
-                    ></v-select>
-                  </v-col>
-                  <v-col class="d-flex" cols="12" sm="6">
-                    <v-select
-                      :items="users"
-                      label="Usuario"
-                      v-model="editedItem.responsable"
-                      item-value="id"
-                    ></v-select>
                   </v-col>
                 </v-row>
               </v-container>
@@ -98,9 +100,9 @@
             dialog: false,
             loading: true,
             headers: [
-                { text: 'Empresa', value: 'empresa_id.nombre' },
+                { text: 'Empresa', value: 'empresa.nombre' },
                 { text: 'Oficina', value: 'nombre',},
-                { text: 'Usuario', value: 'responsable.name' },
+                { text: 'Responsable', value: 'responsable.name' },
                 { text: 'Telefono', value: 'telefono' },
                 { text: 'Correo', value: 'correo' },
                 { text: 'Actions', value: 'action' },
