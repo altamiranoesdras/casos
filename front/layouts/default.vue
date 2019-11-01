@@ -151,6 +151,11 @@ export default {
                 to: '/casos'
             },
             {
+                icon: 'mdi-folder-edit-outline',
+                title: 'Estados Casos',
+                to: '/estados'
+            },
+            {
                 icon: 'mdi-file-chart',
                 title: 'Reportes',
                 to: '/'

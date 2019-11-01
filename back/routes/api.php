@@ -26,3 +26,5 @@ Route::resource('empresas', 'EmpresaAPIController');
 Route::resource('oficinas', 'OficinaAPIController');
 
 Route::resource('casos', 'CasoAPIController');
+
+Route::resource('caso_estados', 'CasoEstadoAPIController');
