@@ -77,7 +77,7 @@
 
 
     <v-footer :fixed="fixed" app>
-      <span>&copy; 2019</span>
+      <span>&copy; 2019 SkyNet. Todos los derechos reservados</span>
     </v-footer>
 
 
@@ -126,15 +126,35 @@ export default {
         fixed: true,
         items: [
           {
-            icon: 'mdi-apps',
-            title: 'Welcome',
-            to: '/'
+                icon: 'mdi-apps',
+                title: 'Inicio',
+                to: '/'
           },
           {
-            icon: 'mdi-account',
-            title: 'Users',
-            to: '/users'
-          }
+                icon: 'mdi-account',
+                title: 'Usuarios',
+                to: '/users'
+          },
+          {
+                icon: 'mdi-domain',
+                title: 'Empresas',
+                to: '/empresas'
+          },
+            {
+                icon: 'mdi-office',
+                title: 'Oficinas',
+                to: '/oficinas'
+            },
+            {
+                icon: 'mdi-folder-edit-outline',
+                title: 'Casos',
+                to: '/casos'
+            },
+            {
+                icon: 'mdi-file-chart',
+                title: 'Reportes',
+                to: '/'
+            }
         ],
         miniVariant: false,
         right: true,

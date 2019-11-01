@@ -8,7 +8,7 @@
 
       <v-toolbar flat color="dark">
 
-        <v-toolbar-title>Usuarios</v-toolbar-title>
+        <v-toolbar-title>Casos</v-toolbar-title>
 
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
@@ -19,24 +19,22 @@
         <v-dialog v-model="dialog" max-width="500px">
 
           <template v-slot:activator="{ on }">
-            <v-btn color="primary" light class="mb-2" v-on="on">Nuevo Usuario</v-btn>
+            <v-btn color="primary" light class="mb-2" v-on="on">Nuevo Caso</v-btn>
           </template>
 
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
             </v-card-title>
+
             <v-card-text>
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.name" label="Nombre"></v-text-field>
+                    <v-text-field v-model="editedItem.titulo" label="Caso"></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.username" label="Username"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.email" label="Correo"></v-text-field>
+                  <v-col cols="12" md="12">
+                    <v-textarea v-model="editedItem.cuerpo" label="Descripcion" outlined></v-textarea>
                   </v-col>
                 </v-row>
               </v-container>
@@ -81,29 +79,26 @@
             dialog: false,
             loading: true,
             headers: [
-                { text: 'Username', value: 'username',},
-                { text: 'Nombre', value: 'name' },
-                { text: 'Correo', value: 'email' },
+                { text: 'Caso', value: 'titulo',},
+                { text: 'Descripcion', value: 'cuerpo' },
                 { text: 'Actions', value: 'action' },
             ],
-            users: [],
+            casos: [],
             editedItem: {
                 id : 0,
-                name: '',
-                username: '',
-                email: '',
+                Caso: '',
+                Descripcion: '',
             },
             defaultItem: {
                 id : 0,
-                name: '',
-                username: '',
-                email: '',
+                Caso: '',
+                Descripcion: '',
             },
         }),
 
         computed: {
             formTitle () {
-                return this.editedItem.id === 0 ? 'Nuevo Usuario' : 'Editar Usuario'
+                return this.editedItem.id === 0 ? 'Nuevo Caso' : 'Editar Caso'
             },
         },
 
@@ -123,7 +118,7 @@
 
                 try{
 
-                    const res = await this.$axios.$get('api/users');
+                    const res = await this.$axios.$get('api/casos');
 
                     this.users = res.data;
                     this.loading = false;
@@ -146,13 +141,13 @@
 
                 this.editedItem = Object.assign({}, item);
 
-                const res = confirm('Esta seguro de eliminar el usuario '+this.editedItem.name+' ?');
+                const res = confirm('Esta seguro de eliminar el caso '+this.editedItem.titulo+' ?');
 
 
                 //si da click en aceptar
                 if (res){
                     try {
-                        const url = 'api/users/'+this.editedItem.id;
+                        const url = 'api/casos/'+this.editedItem.id;
 
                         const res = await this.$axios.$delete(url);
 
@@ -185,13 +180,13 @@
 
                     if(this.editedItem.id === 0){
 
-                        const url = 'api/users';
+                        const url = 'api/casos';
 
                         var res = await this.$axios.$post(url,data);
 
                     }else {
 
-                        var url = 'api/users/'+this.editedItem.id;
+                        var url = 'api/casos/'+this.editedItem.id;
 
                         var res = await this.$axios.$patch(url,data);
                     }

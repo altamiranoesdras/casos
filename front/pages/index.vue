@@ -15,65 +15,35 @@
       </div>
       <v-card>
         <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
+          BIENVENIDOS A SKYNET
         </v-card-title>
         <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
+          <v-card-title class="headline">
+            MISION
+          </v-card-title>
           <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-            >
-              documentation
-            </a>.
+            SkyNet es una empresa especializada en el diseño, desarrollo e implementación de gestion de casos y
+            documentos. Nuestra misión es ofrecer soluciones avanzadas que permitan mejorar la competitividad y
+            productividad, logrando el crecimiento organizacional de nuestros clientes.
           </p>
           <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              title="chat"
-            >
-              discord
-            </a>.
+            Nuestros servicios profesionales se distinguen por la atención personalizada a nuestros clientes,
+            aplicando las mejores prácticas, procesos y tecnologías disponibles en el mercado.
           </p>
+          <v-card-title class="headline">
+            VISION
+          </v-card-title>
           <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
-            >
-              issue board
-            </a>.
+            Ser reconocidos como la mejor empresa de gestion de casos y documentos de Guatemala. Ser reconocida
+            en el pais como una de las empresas líderes en automatizacion de procesos. Ser la empresa Guatemalteca
+            con el mejor clima laboral y al mismo tiempo, un alto nivel de productividad.
           </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
           <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-          >
-            Nuxt GitHub
-          </a>
+          <p>
+            Siguenos en:  &nbsp;&nbsp;&nbsp;<v-icon>mdi-instagram </v-icon> &nbsp;<v-icon>mdi-facebook-box</v-icon>&nbsp;&nbsp;@SkyNet
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Escribenos al:<v-icon>mdi-whatsapp</v-icon>5566-4232
+          </p>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
       </v-card>
     </v-flex>
   </v-layout>
