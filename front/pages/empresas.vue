@@ -98,7 +98,7 @@
                 { text: 'Telefono', value: 'telefono' },
                 { text: 'Correo', value: 'correo' },
                 { text: 'Admin', value: 'admin.name' },
-                { text: 'Actions', value: 'action' },
+                { text: 'Actions', value: 'action', width: '10%' },
             ],
             empresas: [],
             users:[],

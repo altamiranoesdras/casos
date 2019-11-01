@@ -158,7 +158,7 @@ export default {
             {
                 icon: 'mdi-file-chart',
                 title: 'Reportes',
-                to: '/'
+                to: '/reportes'
             }
         ],
         miniVariant: false,

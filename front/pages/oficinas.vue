@@ -101,11 +101,11 @@
             loading: true,
             headers: [
                 { text: 'Empresa', value: 'empresa.nombre' },
-                { text: 'Oficina', value: 'nombre',},
+                { text: 'Nombre', value: 'nombre',},
                 { text: 'Responsable', value: 'responsable.name' },
                 { text: 'Telefono', value: 'telefono' },
                 { text: 'Correo', value: 'correo' },
-                { text: 'Actions', value: 'action' },
+                { text: 'Actions', value: 'action', width: '10%' },
             ],
             oficinas: [],
             empresas: [],

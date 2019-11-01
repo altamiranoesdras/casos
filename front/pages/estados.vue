@@ -80,7 +80,7 @@
             headers: [
                 { text: 'Id', value: 'id' },
                 { text: 'Nombre', value: 'nombre' },
-                { text: 'Actions', value: 'action' },
+                { text: 'Actions', value: 'action', width: '10%' },
             ],
             estados: [],
             editedItem: {

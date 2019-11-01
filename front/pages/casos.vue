@@ -81,7 +81,7 @@
             headers: [
                 { text: 'Caso', value: 'titulo',},
                 { text: 'Descripcion', value: 'cuerpo' },
-                { text: 'Actions', value: 'action' },
+                { text: 'Actions', value: 'action', width: '10%' },
             ],
             casos: [],
             editedItem: {

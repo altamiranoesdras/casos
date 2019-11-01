@@ -84,7 +84,7 @@
                 { text: 'Username', value: 'username',},
                 { text: 'Nombre', value: 'name' },
                 { text: 'Correo', value: 'email' },
-                { text: 'Actions', value: 'action' },
+                { text: 'Actions', value: 'action', width: '10%'},
             ],
             users: [],
             editedItem: {
