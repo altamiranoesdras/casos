@@ -8,6 +8,6 @@ use Faker\Generator as Faker;
 
 $factory->define(CasoEstado::class, function (Faker $faker) {
     return [
-        'nombre' => $faker->unique()->randomElement(['INICIADO','EVALUANDO','CONCLUIDO'])
+        'nombre' => $faker->word
     ];
 });
