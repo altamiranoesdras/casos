@@ -15,7 +15,7 @@ class User extends Authenticatable
 
     protected $with = ['permissions'];
 
-    protected $appends = ['all_permissions'];
+    protected $appends = ['all_permissions','text'];
 
     /**
      * The attributes that are mass assignable.
@@ -59,5 +59,10 @@ class User extends Authenticatable
     public function getAllPermissionsAttribute()
     {
         return $this->getAllPermissions();
+    }
+
+    public function getTextAttribute()
+    {
+        return $this->name;
     }
 }

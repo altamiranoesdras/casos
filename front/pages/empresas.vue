@@ -16,7 +16,7 @@
 
         <!--            Ventana modal del formulario
         ------------------------------------------------------------------------>
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog v-model="dialog" max-width="600px">
 
           <template v-slot:activator="{ on }">
             <v-btn color="primary" light class="mb-2" v-on="on">Nueva Empresa</v-btn>
@@ -30,17 +30,25 @@
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="6" md="6">
                     <v-text-field v-model="editedItem.nombre" label="Nombre"></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="6" md="6">
                     <v-text-field v-model="editedItem.direccion" label="Dirección"></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="6" md="6">
                     <v-text-field v-model="editedItem.telefono" label="Telefono"></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="6" md="6">
                     <v-text-field v-model="editedItem.correo" label="Correo"></v-text-field>
+                  </v-col>
+                  <v-col class="d-flex" cols="12" sm="6">
+                    <v-select
+                      :items="users"
+                      label="Administrador"
+                      v-model="editedItem.admin"
+                      item-value="id"
+                    ></v-select>
                   </v-col>
                 </v-row>
               </v-container>
@@ -89,15 +97,18 @@
                 { text: 'Dirección', value: 'direccion' },
                 { text: 'Telefono', value: 'telefono' },
                 { text: 'Correo', value: 'correo' },
+                { text: 'Admin', value: 'admin.name' },
                 { text: 'Actions', value: 'action' },
             ],
             empresas: [],
+            users:[],
             editedItem: {
                 id : 0,
                 nombre: '',
                 direccion: '',
                 telefono: '',
                 correo: '',
+                admin: '',
             },
             defaultItem: {
                 id : 0,
@@ -105,6 +116,7 @@
                 direccion: '',
                 telefono: '',
                 correo: '',
+                admin: '',
             },
         }),
 
@@ -131,7 +143,8 @@
                 try{
 
                     const res = await this.$axios.$get('api/empresas');
-
+                    const resUs = await this.$axios.$get('api/users');
+                    this.users = resUs.data;
                     this.empresas = res.data;
                     this.loading = false;
 

@@ -24,7 +24,7 @@ class Empresa extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
+    protected $with = ['admin'];
 
 
     public $fillable = [
@@ -63,7 +63,7 @@ class Empresa extends Model
      **/
     public function admin()
     {
-        return $this->belongsTo(\App\Models\User::class, 'admin');
+        return $this->belongsTo(\App\User::class, 'admin');
     }
 
     /**
