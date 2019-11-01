@@ -22,44 +22,48 @@
             <v-btn color="primary" light class="mb-2" v-on="on">Nueva Empresa</v-btn>
           </template>
 
-          <v-card>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
+          <v-form @submit.prevent="save">
+            <v-card>
+              <v-card-title>
+                <span class="headline">{{ formTitle }}</span>
+              </v-card-title>
 
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.nombre" label="Nombre"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.direccion" label="Dirección"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.telefono" label="Telefono"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.correo" label="Correo"></v-text-field>
-                  </v-col>
-                  <v-col class="d-flex" cols="12" sm="6">
-                    <v-select
-                      :items="users"
-                      label="Administrador"
-                      v-model="editedItem.admin"
-                      item-value="id"
-                    ></v-select>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field v-model="editedItem.nombre" label="Nombre"></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field v-model="editedItem.direccion" label="Dirección"></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field v-model="editedItem.telefono" label="Telefono"></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field v-model="editedItem.correo" label="Correo"></v-text-field>
+                    </v-col>
+                    <v-col class="d-flex" cols="12" sm="6">
+                      <v-select
+                        :items="users"
+                        label="Administrador"
+                        v-model="editedItem.admin"
+                        item-value="id"
+                      ></v-select>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
-              <v-btn color="blue darken-1" text @click="save">Guardar</v-btn>
-            </v-card-actions>
-          </v-card>
+              <v-card-actions class="mr-4" >
+                <v-spacer></v-spacer>
+                <v-btn outlined color="blue" text @click="close">Cancelar</v-btn>
+                <v-btn outlined type="submit" color="green" text >
+                  <span v-text="loadingForm ? 'GUARDANDO...' : 'GUARDAR'"></span>   <v-icon v-show="loadingForm">mdi-loading mdi-spin</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-form>
         </v-dialog>
 
       </v-toolbar>
@@ -92,6 +96,7 @@
         data: () => ({
             dialog: false,
             loading: true,
+            loadingForm: false,
             headers: [
                 { text: 'Nombre', value: 'nombre',},
                 { text: 'Dirección', value: 'direccion' },
@@ -192,12 +197,15 @@
 
             close () {
                 this.dialog = false;
+                this.loadingForm = false;
                 setTimeout(() => {
                     this.editedItem = Object.assign({}, this.defaultItem);
                 }, 300)
             },
 
             async save () {
+
+                this.loadingForm = true;
 
                 try {
 
@@ -218,6 +226,8 @@
 
                     this.notifySuccess('Listo!',res.message);
                     this.getDatos();
+                    this.close();
+
 
                 }catch (e) {
                     console.log(e.response);
@@ -228,10 +238,10 @@
 
                         this.notifyErrorList(errors);
                     }
+
+                    this.loadingForm = false;
                 }
 
-
-                this.close()
             }
         }
     }

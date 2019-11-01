@@ -25,7 +25,14 @@ class UpdateCasoAPIRequest extends APIRequest
     public function rules()
     {
         $rules = Caso::$rules;
-        
+
         return $rules;
+    }
+
+    public function attributes()
+    {
+        return [
+            'cuerpo' => 'Descripción',
+        ];
     }
 }

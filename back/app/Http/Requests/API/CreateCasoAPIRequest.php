@@ -26,4 +26,12 @@ class CreateCasoAPIRequest extends APIRequest
     {
         return Caso::$rules;
     }
+
+
+    public function attributes()
+    {
+        return [
+            'cuerpo' => 'Descripción',
+        ];
+    }
 }

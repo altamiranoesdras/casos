@@ -37,10 +37,12 @@
                 </v-container>
               </v-card-text>
 
-              <v-card-actions>
+              <v-card-actions class="mr-4" >
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
-                <v-btn color="blue darken-1" text type="submit">Guardar</v-btn>
+                <v-btn outlined color="blue" text @click="close">Cancelar</v-btn>
+                <v-btn outlined type="submit" color="green" text >
+                  <span v-text="loadingForm ? 'GUARDANDO...' : 'GUARDAR'"></span>   <v-icon v-show="loadingForm">mdi-loading mdi-spin</v-icon>
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-form>
@@ -77,6 +79,7 @@
         data: () => ({
             dialog: false,
             loading: true,
+            loadingForm: false,
             headers: [
                 { text: 'Id', value: 'id' },
                 { text: 'Nombre', value: 'nombre' },
@@ -164,12 +167,15 @@
 
             close () {
                 this.dialog = false;
+                this.loadingForm = false;
                 setTimeout(() => {
                     this.editedItem = Object.assign({}, this.defaultItem);
                 }, 300)
             },
 
             async save () {
+
+                this.loadingForm = true;
 
                 try {
 
@@ -190,6 +196,8 @@
 
                     this.notifySuccess('Listo!',res.message);
                     this.getDatos();
+                    this.close();
+
 
                 }catch (e) {
                     console.log(e.response);
@@ -200,10 +208,11 @@
 
                         this.notifyErrorList(errors);
                     }
+
+                    this.loadingForm = false;
                 }
 
 
-                this.close()
             }
         }
     }

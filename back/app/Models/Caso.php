@@ -20,7 +20,7 @@ class Caso extends Model
 {
 
     public $table = 'casos';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -51,7 +51,6 @@ class Caso extends Model
      * @var array
      */
     public static $rules = [
-        'caso_estado_id' => 'required',
         'titulo' => 'required',
         'cuerpo' => 'required'
     ];
@@ -59,7 +58,7 @@ class Caso extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function casoEstado()
+    public function estado()
     {
         return $this->belongsTo(\App\Models\CasoEstado::class, 'caso_estado_id');
     }
@@ -67,7 +66,7 @@ class Caso extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function casoBitacoras()
+    public function bitacoras()
     {
         return $this->hasMany(\App\Models\CasoBitacora::class, 'caso_id');
     }

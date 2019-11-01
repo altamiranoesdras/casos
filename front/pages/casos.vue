@@ -16,36 +16,40 @@
 
         <!--            Ventana modal del formulario
         ------------------------------------------------------------------------>
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog v-model="dialog" max-width="600px">
 
           <template v-slot:activator="{ on }">
             <v-btn color="primary" light class="mb-2" v-on="on">Nuevo Caso</v-btn>
           </template>
 
-          <v-card>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
+          <v-form @submit.prevent="save">
+            <v-card>
+              <v-card-title>
+                <span class="headline">{{ formTitle }}</span>
+              </v-card-title>
 
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.titulo" label="Caso"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="12">
-                    <v-textarea v-model="editedItem.cuerpo" label="Descripcion" outlined></v-textarea>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" md="12">
+                      <v-text-field v-model="editedItem.titulo" label="Titulo"></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="12">
+                      <v-textarea rows="8" v-model="editedItem.cuerpo" label="Descripcion" outlined></v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
-              <v-btn color="blue darken-1" text @click="save">Guardar</v-btn>
-            </v-card-actions>
-          </v-card>
+              <v-card-actions class="mr-4" >
+                <v-spacer></v-spacer>
+                <v-btn outlined color="blue" text @click="close">Cancelar</v-btn>
+                <v-btn outlined type="submit" color="green" text >
+                  <span v-text="loadingForm ? 'GUARDANDO...' : 'GUARDAR'"></span>   <v-icon v-show="loadingForm">mdi-loading mdi-spin</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-form>
         </v-dialog>
 
       </v-toolbar>
@@ -78,6 +82,7 @@
         data: () => ({
             dialog: false,
             loading: true,
+            loadingForm: false,
             headers: [
                 { text: 'Caso', value: 'titulo',},
                 { text: 'Descripcion', value: 'cuerpo' },
@@ -167,12 +172,15 @@
 
             close () {
                 this.dialog = false;
+                this.loadingForm = false;
                 setTimeout(() => {
                     this.editedItem = Object.assign({}, this.defaultItem);
                 }, 300)
             },
 
             async save () {
+
+                this.loadingForm = true;
 
                 try {
 
@@ -193,6 +201,7 @@
 
                     this.notifySuccess('Listo!',res.message);
                     this.getDatos();
+                    this.close();
 
                 }catch (e) {
                     console.log(e.response);
@@ -203,10 +212,10 @@
 
                         this.notifyErrorList(errors);
                     }
+
+                    this.loadingForm = false;
                 }
 
-
-                this.close()
             }
         }
     }
