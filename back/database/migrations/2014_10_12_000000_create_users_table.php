@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->integer('empresa_id')->nullable()->index('fk_users_empresas1_idx');
+            $table->integer('oficina_id')->nullable()->index('fk_users_oficinas1_idx');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
