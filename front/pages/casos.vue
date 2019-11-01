@@ -37,6 +37,21 @@
                     <v-col cols="12" md="12">
                       <v-textarea rows="8" v-model="editedItem.cuerpo" label="Descripcion" outlined></v-textarea>
                     </v-col>
+
+                    <v-col cols="12" sm="12">
+                      <v-select
+                        v-model="editedItem.ruta"
+                        :items="oficinas"
+                        label="Ruta"
+                        chips
+                        multiple
+                        hint="Seleccione conforme el orden"
+                        persistent-hint
+                        item-text="nombre"
+                        item-value="id"
+                      ></v-select>
+                    </v-col>
+
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -48,6 +63,7 @@
                   <span v-text="loadingForm ? 'GUARDANDO...' : 'GUARDAR'"></span>   <v-icon v-show="loadingForm">mdi-loading mdi-spin</v-icon>
                 </v-btn>
               </v-card-actions>
+
             </v-card>
           </v-form>
         </v-dialog>
@@ -86,18 +102,22 @@
             headers: [
                 { text: 'Caso', value: 'titulo',},
                 { text: 'Descripcion', value: 'cuerpo' },
+                { text: 'Estado', value: 'estado.nombre' },
                 { text: 'Actions', value: 'action', width: '10%' },
             ],
+            oficinas: [],
             casos: [],
             editedItem: {
                 id : 0,
-                Caso: '',
-                Descripcion: '',
+                titulo: '',
+                cuerpo: '',
+                ruta: [],
             },
             defaultItem: {
                 id : 0,
-                Caso: '',
-                Descripcion: '',
+                titulo: '',
+                cuerpo: '',
+                ruta: [],
             },
         }),
 
@@ -124,7 +144,9 @@
                 try{
 
                     const res = await this.$axios.$get('api/casos');
+                    const res2 = await this.$axios.$get('api/oficinas');
 
+                    this.oficinas = res2.data;
                     this.casos = res.data;
                     this.loading = false;
 
@@ -198,6 +220,8 @@
 
                         var res = await this.$axios.$patch(url,data);
                     }
+
+                    this.consolaJs(res);
 
                     this.notifySuccess('Listo!',res.message);
                     this.getDatos();

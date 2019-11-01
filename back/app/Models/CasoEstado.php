@@ -17,9 +17,14 @@ class CasoEstado extends Model
 {
 
     public $table = 'caso_estados';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
+
+    const INICIADO =    1;
+    const EVALUANDO =   2;
+    const APROBADO =    3;
+    const RECHAZADO =   4;
 
 
 

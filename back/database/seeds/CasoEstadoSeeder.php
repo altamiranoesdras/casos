@@ -14,6 +14,7 @@ class CasoEstadoSeeder extends Seeder
     {
         factory(CasoEstado::class,1)->create(['nombre' => 'INICIADO']);
         factory(CasoEstado::class,1)->create(['nombre' => 'EVALUANDO']);
-        factory(CasoEstado::class,1)->create(['nombre' => 'CONCLUIDO']);
+        factory(CasoEstado::class,1)->create(['nombre' => 'APROBADO']);
+        factory(CasoEstado::class,1)->create(['nombre' => 'RECHAZADO']);
     }
 }

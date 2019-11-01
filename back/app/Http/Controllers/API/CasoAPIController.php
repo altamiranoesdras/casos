@@ -5,9 +5,11 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\API\CreateCasoAPIRequest;
 use App\Http\Requests\API\UpdateCasoAPIRequest;
 use App\Models\Caso;
+use App\Models\CasoEstado;
 use App\Repositories\CasoRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\DB;
 use Response;
 
 /**
@@ -53,9 +55,30 @@ class CasoAPIController extends AppBaseController
      */
     public function store(CreateCasoAPIRequest $request)
     {
-        $input = $request->all();
 
-        $caso = $this->casoRepository->create($input);
+        try {
+            DB::beginTransaction();
+
+            $request->merge(['caso_estado_id' => CasoEstado::INICIADO]);
+
+            $caso = $this->casoRepository->create($request->all());
+
+            $ruta = [];
+
+            foreach ($request->ruta as $index => $oficina_id) {
+                $ruta[$oficina_id] = ['orden' => $index+1];
+            }
+
+            $caso->ruta()->sync($ruta);
+
+        } catch (\Exception $exception) {
+            DB::rollBack();
+
+            return $this->sendError($exception->getMessage());
+        }
+
+        DB::commit();
+
 
         return $this->sendResponse($caso->toArray(), 'Caso saved successfully');
     }

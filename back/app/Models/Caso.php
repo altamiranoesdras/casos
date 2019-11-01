@@ -25,7 +25,7 @@ class Caso extends Model
     const UPDATED_AT = 'updated_at';
 
 
-
+    protected $with = ['estado'];
 
     public $fillable = [
         'caso_estado_id',
@@ -74,7 +74,7 @@ class Caso extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      **/
-    public function oficinas()
+    public function ruta()
     {
         return $this->belongsToMany(\App\Models\Oficina::class, 'caso_ruta');
     }

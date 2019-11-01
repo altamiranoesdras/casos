@@ -4,6 +4,12 @@ import Vue from 'vue'
 
 Vue.mixin({
   methods:{
+
+    consolaJs(data,...otherData) {
+      if (process.env.DEBUG || true){
+        console.log(data,otherData);
+      }
+    },
     errorToList(errors){
       var res ="<ul style='list-style-type: none; padding:0px;'>";
 
