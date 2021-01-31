@@ -48,6 +48,10 @@
 <!--        <v-icon>mdi-menu</v-icon>-->
 <!--      </v-btn>-->
 
+
+      <v-btn>
+        <span v-text="this.$auth.user.user.name"></span>
+      </v-btn>
       <v-btn icon @click.stop="open = true">
         <v-icon>mdi-logout</v-icon>
       </v-btn>

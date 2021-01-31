@@ -45,11 +45,11 @@
                     </v-col>
 
 
-                    <v-col cols="12" sm="6" md="6" v-show="!editando">
+                    <v-col cols="12" sm="6" md="6" >
                       <v-text-field type="password" v-model="editedItem.password" label="Contraseña"></v-text-field>
                     </v-col>
 
-                    <v-col cols="12" sm="6" md="6" v-show="!editando">
+                    <v-col cols="12" sm="6" md="6" >
 
                       <v-text-field type="password" v-model="editedItem.password_confirmation" label="Confirmar Contraseña"></v-text-field>
                     </v-col>
